@@ -1,7 +1,9 @@
 @echo off
 set userChoice=unkdown
 set APP_NAME=SmallCleaner
+set APP_GITHUB_URL=https://gihtub.com/NameText-c/SmallCleaner
 set CON_TITLE_homePage=%APP_NAME%
+set CON_TITLE_aboutPage=About - %APP_NAME%
 set CON_TITLE_clean=Cleaning... - %APP_NAME%
 set CON_TITLE_finishPage=Finished - %APP_NAME%
 set UNIT_STORAGE_GiB=1073741824
@@ -14,19 +16,51 @@ set UNIT_STORAGE_MiB=1048576
 
 :homePage
 title %CON_TITLE_homePage%
-mode con cols=35 lines=8
+mode con cols=35 lines=9
 cls
 echo.
-echo       [C] Clean
-echo       [X] Exit
-echo    _____________________________
+echo               [C] Clean
+echo               [A] About
+echo               [X] Exit
+echo    _______________________________
 echo.
-echo       Type your choice[C,X]:
-choice /c "CX" /n
+echo       Type your choice[C,A,X]:
+choice /c "CAX" /n
 set userChoice=%errorlevel%
 if %userChoice%==1 (goto clean)
-if %userChoice%==2 (exit 0)
+if %userChoice%==2 (goto aboutPage)
+if %userChoice%==3 (exit 0)
 goto homePage
+
+
+:aboutPage
+title %CON_TITLE_aboutPage%
+mode con cols=64 lines=18
+cls
+echo.
+echo       About
+echo    __________________________________________________________
+echo.
+echo       App name: %APP_NAME%
+::         App name: SmallCleaner
+echo       GitHub  : %APP_GITHUB_URL%
+::         GitHub  : https://gihtub.com/NameText-c/SmallCleaner
+echo    __________________________________________________________
+echo.
+echo                   [G] Visit the GitHub webpage
+echo                   [H] Back to home page
+echo                   [X] Exit
+echo    __________________________________________________________
+echo.
+echo                    Type your choice[G,H,X]:
+choice /c "GHX" /n
+set userChoice=%errorlevel%
+if %userChoice%==1 (
+    start %APP_GITHUB_URL%
+    goto aboutPage
+)
+if %userChoice%==2 (goto homePage)
+if %userChoice%==3 (exit 0)
 
 
 :clean
